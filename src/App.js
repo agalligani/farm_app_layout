@@ -1,24 +1,34 @@
-import logo from './logo.svg';
+import { Routes, Route } from 'react-router-dom'
+// import Home from './components/Home'
+// import Layout from "./components/Layout";
+import Welcome from "./components/Welcome"
+import DashLayout from "./components/DashLayout";
+import Area from "./features/areas/Area";
+import Planting from "./features/plantings/Planting";
+import Crop from './features/crops/Crop';
+// import { Helmet } from 'react-helmet-async';
+
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Routes>
+      <Route path="/" element={<DashLayout />}>
+        <Route index element={<Welcome />} />  
+        <Route path="plantings">
+            <Route index element={<Planting />} />
+        </Route>
+        <Route path="schedule">
+            <Route index element={<Crop />} />
+        </Route>
+        <Route path="areas">
+            <Route index element={<Area />} />
+        </Route>
+        <Route path="crops">
+            <Route index element={<Crop />} />
+        </Route>
+      </Route>
+    </Routes>
   );
 }
 

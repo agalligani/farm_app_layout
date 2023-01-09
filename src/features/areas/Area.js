@@ -1,0 +1,35 @@
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPenToSquare } from "@fortawesome/free-solid-svg-icons"
+import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { selectAreaById } from './areasApiSlice'
+import AreasMainBody from './AreasMainBody';
+
+const Area = ({ areaId }) => {
+
+    const area = useSelector(state => selectAreaById(state, areaId))
+    const navigate = useNavigate()
+
+    if (area) {
+        const handleEdit = () => navigate(`/areas/${areaId}`)
+
+        return (
+
+                <AreasMainBody >
+                <article>
+                    {area.title}
+                    <button
+                        className="icon-button"
+                        onClick={handleEdit}
+                    >
+                        <FontAwesomeIcon icon={faPenToSquare} />
+                    </button>
+                </article>
+                </AreasMainBody>
+        )
+    } else {
+        return <AreasMainBody ><article><h2>No areas defined.</h2></article></ AreasMainBody>
+    }
+}
+
+export default Area
