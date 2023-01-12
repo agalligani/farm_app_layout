@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { useAddNewAreaMutation } from "./areasApiSlice"
@@ -27,7 +25,7 @@ const NewAreaForm = () => {
             setTitle('')
             setDescription('')
             setActive(null)
-            navigate('/dash/areas')
+            navigate('/areas')
         }
     }, [isSuccess, navigate])
 

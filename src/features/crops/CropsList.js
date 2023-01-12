@@ -1,7 +1,6 @@
-import React from 'react';
-
 import { useGetCropsQuery } from "./cropsApiSlice"
 import Crop from "./Crop"
+import MainBody from '../../layouts/MainDoubleColumn';
 
 const CropsList = () => {
 
@@ -34,10 +33,9 @@ const CropsList = () => {
     
 
         content = (
-            <main>
-                <div>CropsList</div>
-                    {cropRows}
-            </main>
+            <MainBody title="Crops">
+                {cropRows}
+            </MainBody>
         )
 
     return content

@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
-import './Area.css';
+import './style/main_body.scss';
 
-const AreasMainBody = ({children, SideBar, title}) => {
+const MainBody = ({children, SideBar, title}) => {
     return (
-      <main className="main__body_wrapper" role="main">
+      <main className="main__body_double_col_wrapper" role="main">
         <div className="main__body">
           <div className="main__inner_center">
             <h2>{title}</h2>
@@ -16,9 +16,9 @@ const AreasMainBody = ({children, SideBar, title}) => {
       </main>
     )
   }
-export default AreasMainBody
+export default MainBody
 
-AreasMainBody.propTypes = {
+MainBody.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.element), 
     PropTypes.element.isRequired
@@ -27,7 +27,7 @@ AreasMainBody.propTypes = {
   title: PropTypes.string,
 }
 
-AreasMainBody.defaultProps = {
+MainBody.defaultProps = {
   Sidebar: null,
   title: null
 }

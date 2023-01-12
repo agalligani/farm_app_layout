@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { createSelector, createEntityAdapter } from "@reduxjs/toolkit"
 import { apiSlice } from "../../app/api/apiSlice"
 
@@ -21,12 +19,49 @@ export const cropsApiSlice = apiSlice.injectEndpoints({
                 console.log(loadedCrops)
                 return cropsAdapter.setAll(initialState, loadedCrops)
             }
-        })
+        }),
+        addNewCrop: builder.mutation({
+            query: initialCrop => ({
+                url: '/crops',
+                method: 'POST',
+                body: {
+                    ...initialCrop,
+                }
+            }),
+            invalidateTags: [
+                { type: 'Crop', id: "LIST"}
+            ]
+        }),
+        updateCrop: builder.mutation({
+            query: initialCrop => ({
+                url: '/crops',
+                method: 'PATCH',
+                body: {
+                    ...initialCrop
+                }
+            }),
+            invalidateTags: (result, error, arg) => [
+                { type: 'Crop', id: arg.id }
+            ]
+        }),
+        deleteCrop: builder.mutation({
+            query: ({id}) => ({
+                url: '/crops',
+                method: 'DELETE',
+                body: { id }
+            }),
+            invalidatesTags: (result, error, arg) => [
+                {type: 'Crop', id: arg.id}
+            ]
+        })    
     })
 })
 
 export const {
-    useGetCropsQuery
+    useGetCropsQuery,
+    useAddNewCropMutation,
+    useUpdateCropMutation,
+    useDeleteCropMutation
 } = cropsApiSlice
 
 //returns the query result object

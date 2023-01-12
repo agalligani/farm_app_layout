@@ -1,7 +1,7 @@
-import React from 'react';
-
 import { useGetAreasQuery } from "./areasApiSlice"
 import Area from "./Area"
+import MainBody from "../../layouts/MainDoubleColumn"
+// import AreasMainBody from './AreasMainBody'
 
 const AreasList = () => {
 
@@ -12,7 +12,7 @@ const AreasList = () => {
         isError,
         error
     } = useGetAreasQuery(undefined, {
-        pollingInterval: 15000,
+        pollingInterval: 45000,
         refetchOnFocus: true,
         refetchOnMountOrArgChange: true
     })
@@ -34,10 +34,9 @@ const AreasList = () => {
     
 
         content = (
-            <main>
-                <div>AreasList</div>
+            <MainBody title='Areas'>
                     {areaRows}
-            </main>
+            </MainBody>
         )
 
     return content

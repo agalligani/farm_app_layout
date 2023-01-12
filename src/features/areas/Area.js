@@ -3,7 +3,6 @@ import { faPenToSquare } from "@fortawesome/free-solid-svg-icons"
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { selectAreaById } from './areasApiSlice'
-import AreasMainBody from './AreasMainBody';
 
 const Area = ({ areaId }) => {
 
@@ -15,7 +14,6 @@ const Area = ({ areaId }) => {
 
         return (
 
-                <AreasMainBody >
                 <article>
                     {area.title}
                     <button
@@ -25,10 +23,9 @@ const Area = ({ areaId }) => {
                         <FontAwesomeIcon icon={faPenToSquare} />
                     </button>
                 </article>
-                </AreasMainBody>
         )
     } else {
-        return <AreasMainBody ><article><h2>No areas defined.</h2></article></ AreasMainBody>
+        return <article><h2>No areas defined.</h2></article>
     }
 }
 

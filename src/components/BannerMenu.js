@@ -1,4 +1,4 @@
-import MainLinks from './MainLinks/Mainlinks'
+import MainLinks from './Mainlinks'
 
 const BannerMenu = () => {
   return (

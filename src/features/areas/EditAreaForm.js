@@ -5,6 +5,7 @@ import { useUpdateAreaMutation, useDeleteAreaMutation } from "./areasApiSlice"
 import { useNavigate } from "react-router-dom"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSave, faTrashCan } from "@fortawesome/free-solid-svg-icons"
+import '../../style/buttons.scss'
 // import { ROLES } from "../../config/roles"
 
 
@@ -35,7 +36,7 @@ const EditAreaForm = ({ area }) => {
             setTitle('')
             setDescription('')
             setActive(null)
-            navigate('/dash/areas')
+            navigate('/areas')
         }
 
     }, [isSuccess, isDelSuccess, navigate])
