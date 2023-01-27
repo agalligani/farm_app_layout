@@ -1,10 +1,16 @@
 //Note - is a schedule form?
 import MainBody from "../../layouts/MainSingleColumn"
 import { useGetPlantingsQuery } from "./plantingsApiSlice"
+import { useNavigate } from "react-router-dom";
 import Planting from './Planting'
 import GridLoader from "react-spinners/GridLoader";
+import { Button } from "react-bootstrap"
 
-const PlantingList = () => {
+const PlantingsList = () => {
+
+    const navigate = useNavigate()
+    const handleNewClick = () => {navigate('/plantings/new')}
+
 
   const { data: plantings,
         isLoading,
@@ -37,8 +43,13 @@ const PlantingList = () => {
       }
   
   return (
-      <MainBody title='Plantings'>{content}</MainBody>
+      <MainBody title='Plantings'>
+        <>
+          <Button onClick={handleNewClick}>New Planting</Button>
+          {content}
+        </>
+      </MainBody>
     )
   }
 
-export default PlantingList
+export default PlantingsList

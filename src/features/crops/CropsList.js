@@ -1,8 +1,13 @@
 import { useGetCropsQuery } from "./cropsApiSlice"
 import Crop from "./Crop"
 import MainBody from '../../layouts/MainDoubleColumn';
+import { useNavigate } from "react-router-dom";
+import { Button } from 'react-bootstrap'
 
 const CropsList = () => {
+
+    const navigate = useNavigate()
+    const handleNewClick = () => {navigate('/crops/new')}
 
     const {
         data: crops,
@@ -11,7 +16,7 @@ const CropsList = () => {
         isError,
         error
     } = useGetCropsQuery(undefined, {
-        pollingInterval: 15000,
+        pollingInterval: 95000,
         refetchOnFocus: true,
         refetchOnMountOrArgChange: true
     })
@@ -34,7 +39,10 @@ const CropsList = () => {
 
         content = (
             <MainBody title="Crops">
+                <>
+                <Button onClick={handleNewClick}>New Crop</Button>
                 {cropRows}
+                </>
             </MainBody>
         )
 

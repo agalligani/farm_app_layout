@@ -1,14 +1,23 @@
 import { useSelector } from 'react-redux'
-import { selectAllAreas } from '../selectAllAreass/selectAllAreassApiSlice'
-import NewNoteForm from './NewNoteForm'
+import { selectAllAreas } from '../areas/areasApiSlice'
+import { selectAllCrops } from '../crops/cropsApiSlice'
+import NewPlantingForm from './NewPlantingForm'
+import MainBody from '../../layouts/MainDoubleColumn'
 
-const NewNote = () => {
-    const selectAllAreas = useSelector(selectAllAreas)
+const NewPlanting = () => {
 
-    if (!selectAllAreas?.length) return <p>Not Currently Available</p>
+    const areas = useSelector(selectAllAreas)
+    const crops = useSelector(selectAllCrops)
 
-    const content = <NewNoteForm selectAllAreas={selectAllAreas} />
+    if (!areas?.length) return <p>Areas not Currently Available</p>
+    if (!crops?.length) return <p>Crops not Currently Available</p>
+
+    console.log(crops)
+
+    const content = <MainBody>
+        <NewPlantingForm areas={areas} crops={crops} />
+        </MainBody>
 
     return content
 }
-export default NewNote
+export default NewPlanting

@@ -1,7 +1,11 @@
-import { createSelector, createEntityAdapter } from "@reduxjs/toolkit"
+import {
+    createSelector,
+    createEntityAdapter
+} from "@reduxjs/toolkit";
 import { apiSlice } from "../../app/api/apiSlice"
 
 const areasAdapter = createEntityAdapter({})
+
 const initialState = areasAdapter.getInitialState()
 
 export const areasApiSlice = apiSlice.injectEndpoints({
@@ -9,7 +13,7 @@ export const areasApiSlice = apiSlice.injectEndpoints({
         getAreas: builder.query({
             query: () => '/areas',
             validateStatus: (response, result) => {
-                return response.status === 200 && !result.isError   
+                return response.status === 200 && !result.isError
             },
             transformResponse: responseData => {
                 const loadedAreas = responseData.map(area => {
@@ -18,14 +22,22 @@ export const areasApiSlice = apiSlice.injectEndpoints({
                 });
                 console.log(loadedAreas)
                 return areasAdapter.setAll(initialState, loadedAreas)
+            },
+            providesTags: (result, error, arg) => {
+                if (result?.ids) {
+                    return [
+                        { type: 'Area', id: 'LIST' },
+                        ...result.ids.map(id => ({ type: 'Area', id }))
+                    ]
+                } else return [{ type: 'Area', id: 'LIST' }]
             }
         }),
         addNewArea: builder.mutation({
-            query: initialArea => ({
+            query: initialAreaData => ({
                 url: '/areas',
                 method: 'POST',
                 body: {
-                    ...initialArea,
+                    ...initialAreaData,
                 }
             }),
             invalidatesTags: [
@@ -33,44 +45,44 @@ export const areasApiSlice = apiSlice.injectEndpoints({
             ]
         }),
         updateArea: builder.mutation({
-            query: initialArea => ({
+            query: initialAreaData => ({
                 url: '/areas',
                 method: 'PATCH',
                 body: {
-                    ...initialArea,
+                    ...initialAreaData,
                 }
             }),
             invalidatesTags: (result, error, arg) => [
-                { type: 'Area', id: arg.id}
+                { type: 'Area', id: arg.id }
             ]
         }),
         deleteArea: builder.mutation({
-            query: ({id}) => ({
-                url: '/areas',
+            query: ({ id }) => ({
+                url: `/areas`,
                 method: 'DELETE',
                 body: { id }
             }),
             invalidatesTags: (result, error, arg) => [
-                {type: 'Area', id: arg.id}
+                { type: 'Area', id: arg.id }
             ]
-        })
-    })
+        }),
+    }),
 })
 
 export const {
     useGetAreasQuery,
     useAddNewAreaMutation,
     useUpdateAreaMutation,
-    useDeleteAreaMutation
+    useDeleteAreaMutation,
 } = areasApiSlice
 
-//returns the query result object
+// returns the query result object
 export const selectAreasResult = areasApiSlice.endpoints.getAreas.select()
 
-//creates memoized selector
+// creates memoized selector
 const selectAreasData = createSelector(
     selectAreasResult,
-    areasResult => areasResult.data // normalized state object
+    areasResult => areasResult.data // normalized state object with ids & entities
 )
 
 //getSelectors creates these selectors and we rename them with aliases using destructuring
@@ -80,4 +92,3 @@ export const {
     selectIds: selectAreaIds
     // Pass in a selector that returns the areas slice of state
 } = areasAdapter.getSelectors(state => selectAreasData(state) ?? initialState)
-

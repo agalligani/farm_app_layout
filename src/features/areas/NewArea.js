@@ -1,6 +1,12 @@
-//Simple serves the NewAreaForm
-import React from 'react';
-
+//Simply serves the NewAreaForm
 import NewAreaForm from './NewAreaForm'
-const NewArea = () => <NewAreaForm />
+import MainBody from '../../layouts/MainDoubleColumn'
+
+const NewArea = () => {
+    return (
+        <MainBody>
+            <NewAreaForm />
+        </MainBody>
+    )
+}
 export default NewArea

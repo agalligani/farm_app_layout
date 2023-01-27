@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux"
 import { selectCropById } from './cropsApiSlice'
 import { useNavigate } from 'react-router-dom'
-import { Row, Card, Button } from 'react-bootstrap'
+import { Card, Button } from 'react-bootstrap'
 
 const Crop = ({cropId}) => {
   const crop = useSelector((state) => selectCropById(state, cropId))
@@ -9,8 +9,7 @@ const Crop = ({cropId}) => {
   const handleClick = () => navigate(`/crops/${cropId}`)
 
   return (
-      <Row>
-        <Card onClick={() => handleClick()} style={{cursor : 'pointer'}} >
+      <Card onClick={() => handleClick()} style={{cursor : 'pointer'}} >
         {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
         <Card.Body>
             <Card.Title>{crop.name} - {crop.qualifier}</Card.Title>
@@ -19,7 +18,6 @@ const Crop = ({cropId}) => {
             </Card.Text>
         </Card.Body>
         </Card>
-      </Row>
   )
 }
 export default Crop

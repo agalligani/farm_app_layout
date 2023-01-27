@@ -5,7 +5,7 @@ const Mainlinks = () => {
 
     const links = [
         {href: '/', linkText: "Home", svgPath: svg1},
-        {href: '/schedule', linkText: "Schedule", svgPath: svg1},
+        {href: '/schedules', linkText: "Schedule", svgPath: svg1},
         {href: '/plantings', linkText: "Plantings", svgPath: svg1},
         {href: '/crops', linkText: "Crops", svgPath: svg1},
         {href: '/areas', linkText: "Areas", svgPath: svg1}

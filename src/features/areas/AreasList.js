@@ -1,9 +1,16 @@
-import { useGetAreasQuery } from "./areasApiSlice"
+import { useGetAreasQuery, selectAllAreas } from "./areasApiSlice"
+import { useNavigate } from "react-router-dom"
 import Area from "./Area"
 import MainBody from "../../layouts/MainDoubleColumn"
+import { Button } from "react-bootstrap"
+import { useSelector } from "react-redux"
+
 // import AreasMainBody from './AreasMainBody'
 
 const AreasList = () => {
+
+    const navigate = useNavigate()
+    const handleNewClick = () => {navigate('/areas/new')}
 
     const {
         data: areas,
@@ -17,6 +24,9 @@ const AreasList = () => {
         refetchOnMountOrArgChange: true
     })
 
+    const selectAreas = useSelector(selectAllAreas)
+    const ids = selectAreas.map(a => {return a.id})
+
     let content
 
     if (isLoading) content = <p>Loading...</p>
@@ -27,16 +37,21 @@ const AreasList = () => {
 
     if (isSuccess) {
         const { ids } = areas
-
         const areaRows = ids?.length
         ? ids.map(areaId => <Area key={areaId} areaId={areaId} />)
         : null
     
 
+
         content = (
             <MainBody title='Areas'>
-                    {areaRows}
+            <>
+                <div>{ids}</div>
+                <Button onClick={handleNewClick}>New Area</Button>
+                {areaRows}
+            </>
             </MainBody>
+
         )
 
     return content

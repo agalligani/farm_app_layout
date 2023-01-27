@@ -3,13 +3,13 @@ import { faPenToSquare } from "@fortawesome/free-solid-svg-icons"
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { selectPlantingById } from './plantingsApiSlice'
-import { Form, Button } from 'react-bootstrap'
+import { Form } from 'react-bootstrap'
 
 const Planting = ({ plantingId }) => {
 
     console.log("id" + plantingId)
 
-    const planting = useSelector(state => selectPlantingById(state, plantingId))
+    const planting = useSelector((state) => selectPlantingById(state, plantingId))
 
 
     console.log(planting)
@@ -20,7 +20,7 @@ const Planting = ({ plantingId }) => {
 
         return (
                 <article>
-                    <Form>
+                    <Form onSubmit={e => e.preventDefault()}>
                     {planting.title}
                     <button
                         className="icon-button"
